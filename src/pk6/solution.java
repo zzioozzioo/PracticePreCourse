@@ -14,6 +14,7 @@ public class solution {
                 {"woniee@email.com", "워니"},
                 {"mj@email.com", "엠제이"},
                 {"nowm@email.com", "이제엠"}};
+        
         System.out.println(solution(forms));
     }
 
@@ -30,24 +31,39 @@ public class solution {
         for (int i = 0; i < forms.length; i++) {
             String name = forms[i][1];
             for (int j = i+1; j < forms.length - i; j++) {
-                for (int k = 0; k < forms[i].length-1; k++) { // 닉네임을 두 글자씩 끊어서 탐색
-                      String target = name.substring(k, k + 2);
-                    if(forms[j][1].contains(target)) { // 중복이 있다면
-                        hashSet.add(forms[i][0]);
-                        hashSet.add(forms[j][0]);
-                    }
-                }
+                targetNameSearch(forms, name, hashSet, i, j);
             }
         }
+
+        // 오름차순 정렬
+        ArrayList<String> result = Sort(hashSet);
+
+        return result;
+    }
+
+    private static void targetNameSearch(String[][] forms, String name, HashSet<String> hashSet, int i, int j) {
+
+        for (int k = 0; k < forms[i].length-1; k++) {
+            String target = name.substring(k, k + 2); // 닉네임을 두 글자씩 끊어서 탐색
+            isNameDupl(forms, target, hashSet, i, j);
+        }
+    }
+
+    private static ArrayList<String> Sort(HashSet<String> hashSet) {
 
         ArrayList<String> result = new ArrayList<>();
         for (String s : hashSet) {
             result.add(s);
         }
 
-        // 오름차순 정렬
         Collections.sort(result);
-
         return result;
+    }
+
+    private static void isNameDupl(String[][] forms, String target, HashSet<String> hashSet, int i, int j) {
+        if(forms[j][1].contains(target)) { // 중복이 있다면
+            hashSet.add(forms[i][0]);
+            hashSet.add(forms[j][0]);
+        }
     }
 }
