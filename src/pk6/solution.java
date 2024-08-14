@@ -14,7 +14,7 @@ public class solution {
                 {"woniee@email.com", "워니"},
                 {"mj@email.com", "엠제이"},
                 {"nowm@email.com", "이제엠"}};
-        
+
         System.out.println(solution(forms));
     }
 
